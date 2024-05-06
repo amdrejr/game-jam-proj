@@ -6,18 +6,26 @@ public class PlayerMoviment : MonoBehaviour {
     public float Speed; 
     Rigidbody Rig;
 
-    private void FixedUpdate() {
-        Vector3 Position = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        Rig.velocity = Position * Speed;
-    }
-    
-    // Start is called before the first frame update
-    void Start() {
+    private void Start() {
         Rig = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update() {
-        
+    private void FixedUpdate() {
+        // Obter as entradas de movimento horizontal e vertical
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Vertical");
+
+        // Calcular a direção do movimento
+        Vector3 movementDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
+
+        // Verificar se há movimento
+        if (movementDirection != Vector3.zero) {
+            // Rotacionar o jogador na direção do movimento
+            Quaternion targetRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+            transform.rotation = targetRotation;
+        }
+
+        // Aplicar velocidade ao Rigidbody
+        Rig.velocity = movementDirection * Speed;
     }
 }

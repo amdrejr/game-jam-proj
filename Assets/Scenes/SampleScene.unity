@@ -1796,7 +1796,6 @@ GameObject:
   - component: {fileID: 1117181307}
   - component: {fileID: 1117181308}
   - component: {fileID: 1117181309}
-  - component: {fileID: 1117181310}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1886,11 +1885,7 @@ Transform:
   m_GameObject: {fileID: 1117181301}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-<<<<<<< Updated upstream
   m_LocalPosition: {x: 60.9, y: 1, z: 69.1}
-=======
-  m_LocalPosition: {x: 0.22, y: 1, z: -0.71}
->>>>>>> Stashed changes
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1958,33 +1953,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1117181301}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: abadbf6e639ee1b4cad8bb543366f240, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 1482402389}
-<<<<<<< Updated upstream
   damageAmount: 100
-=======
-  damageAmount: 30
---- !u!114 &1117181310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1117181301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6be13764a646c264a92ab1595ace24e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 1482402389}
-  damageAmount: 8
-  pelletsCount: 8
-  spreadAngle: 16
->>>>>>> Stashed changes
 --- !u!1 &1207279608
 GameObject:
   m_ObjectHideFlags: 0
@@ -2642,7 +2617,7 @@ Transform:
   m_GameObject: {fileID: 1482402389}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 42.2, y: 4.068, z: -17.411}
+  m_LocalPosition: {x: 12.84481, y: 4.068, z: -17.411}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []

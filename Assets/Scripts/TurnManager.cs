@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class EnemySpawner : MonoBehaviour {
     public GameObject enemyPrefab;
+    public GameObject chickenPrefab;
     public int initialEnemiesPerWave = 3;
     public int enemiesIncreasePerWave = 2;
     public float spawnInterval = 2f;
@@ -47,11 +48,14 @@ public class EnemySpawner : MonoBehaviour {
         }
         StartCoroutine(ShowAndHideMessage(textAlert, "Wave finalizada", 3f));
 
+        // Chama a função para spawnar a galinha
+        print("spawnando galinha");
+        SpawnChicken();
+
         yield return new WaitForSeconds(waveInterval);
         currentWave++;
 
         StartNextWave();
-
     }
 
     private void Update() {
@@ -78,4 +82,12 @@ public class EnemySpawner : MonoBehaviour {
         // Esconde a mensagem
         messageText.enabled = false;
     }
+
+    private void SpawnChicken() {
+    // Escolhe aleatoriamente um ponto de spawn nos cantos do mapa para a galinha
+    Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+
+    // Spawn da galinha no ponto selecionado
+    Instantiate(chickenPrefab, randomSpawnPoint.position, Quaternion.identity);
+}
 }

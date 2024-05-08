@@ -10,6 +10,7 @@ public class EnemyDamage : MonoBehaviour {
     private void OnCollisionStay(Collision collision) {
         if (collision.collider.CompareTag("Player")) {
             if (Time.time - lastAttackTime >= attackInterval) {
+                //Devo chamar a animação aqui
                 collision.collider.GetComponent<PlayerLife>().TakeDamage(Damage);
                 lastAttackTime = Time.time;
             }

@@ -8,9 +8,9 @@ public class Chicken : MonoBehaviour {
     public Slider playerVida; // Instancia da vida do personagem (Slider)
     public Transform[] targetToGo; // Elementos do cenário para onde a galinha deve correr
 
-    private void Start() {
-        
-    }
+    public float fleeDistance = 20f; // Distância mínima em que a galinha começará a fugir do jogador
+    private float fleeTimer = 0f;
+    private float fleeCooldown = 1f; // Tempo de espera antes de calcular a direção de fuga novamente
 
     private void OnCollisionStay(Collision collision) {
         // Verifica se a galinha colidiu com o Player
@@ -25,16 +25,39 @@ public class Chicken : MonoBehaviour {
     private void Update() {
         // Verifica se há pelo menos um destino configurado
         if (targetToGo.Length > 0) {
-            // Escolhe um destino aleatório da matriz de destinos
-            Transform randomTarget = targetToGo[Random.Range(0, targetToGo.Length)];
+            // Verifica se o GameObject do Player está ativo antes de acessá-lo
+            GameObject playerGameObject = GameObject.FindGameObjectWithTag("Player");
+            if (playerGameObject != null && playerGameObject.activeSelf) {
+                // Calcula a direção oposta à posição do jogador
+                Vector3 fleeDirection = transform.position - playerGameObject.transform.position;
 
-            // Define o destino do NavMeshAgent como a posição do destino selecionado
-            chicken.SetDestination(randomTarget.position);
+                // Incrementa o temporizador
+                fleeTimer += Time.deltaTime;
 
-            // Verifica se a galinha chegou ao destino
-            if (!chicken.pathPending && chicken.remainingDistance <= chicken.stoppingDistance) {
-                // Destroi a galinha
-                Destroy(gameObject);
+                // Verifica se o temporizador atingiu o tempo de espera
+                if (fleeTimer >= fleeCooldown) {
+                    // Verifica se a distância entre a galinha e o jogador é menor que a distância de fuga
+                    if (fleeDirection.magnitude < fleeDistance) {
+                        // Define o destino da galinha como a posição oposta ao jogador
+                        Vector3 targetPosition = transform.position + fleeDirection;
+                        chicken.SetDestination(targetPosition);
+
+                        // Reinicia o temporizador
+                        fleeTimer = 0f;
+                    }
+                }
+
+                // Se não estiver fugindo, escolhe um destino aleatório da matriz de destinos
+                if (fleeTimer >= fleeCooldown || fleeDirection.magnitude >= fleeDistance) {
+                    Transform randomTarget = targetToGo[Random.Range(0, targetToGo.Length)];
+                    chicken.SetDestination(randomTarget.position);
+
+                    // Verifica se a galinha chegou ao destino
+                    if (!chicken.pathPending && chicken.remainingDistance <= chicken.stoppingDistance) {
+                        // Destroi a galinha
+                        Destroy(gameObject);
+                    }
+                }
             }
         }
     }

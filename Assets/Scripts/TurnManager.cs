@@ -9,7 +9,7 @@ public class EnemySpawner : MonoBehaviour {
     public int initialEnemiesPerWave = 3;
     public int enemiesIncreasePerWave = 2;
     public float spawnInterval = 2f;
-    public float waveInterval = 15f; // Intervalo entre ondas
+    public float waveInterval = 3f; // Intervalo entre ondas
     private int currentWave = 1;
     private List<GameObject> spawnedEnemies = new List<GameObject>();
     // Referências para os objetos de texto na UI

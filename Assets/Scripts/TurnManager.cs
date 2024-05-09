@@ -12,12 +12,14 @@ public class EnemySpawner : MonoBehaviour {
     public float waveInterval = 15f; // Intervalo entre ondas
     private int currentWave = 1;
     private List<GameObject> spawnedEnemies = new List<GameObject>();
-
-    // Pontos de spawn nos cantos do mapa
-    public Transform[] spawnPoints;
-
     // Referências para os objetos de texto na UI
     public Text textAlert;
+
+    // Pontos de spawn nos cantos do mapa
+    public Transform[] spawnPointsEnemies;
+    public Transform[] spawnPointsChicken;
+
+    
 
     private void Start() {
         StartNextWave();
@@ -33,7 +35,7 @@ public class EnemySpawner : MonoBehaviour {
         StartCoroutine(ShowAndHideMessage(textAlert, "O ataque começou!", 3f));
         for (int i = 0; i < enemiesToSpawn; i++) {
             // Escolhe aleatoriamente um ponto de spawn nos cantos do mapa
-            Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+            Transform randomSpawnPoint = spawnPointsEnemies[Random.Range(0, spawnPointsEnemies.Length)];
 
             // Spawn do inimigo no ponto selecionado
             GameObject newEnemy = Instantiate(enemyPrefab, randomSpawnPoint.position, Quaternion.identity);
@@ -85,7 +87,7 @@ public class EnemySpawner : MonoBehaviour {
 
     private void SpawnChicken() {
     // Escolhe aleatoriamente um ponto de spawn nos cantos do mapa para a galinha
-    Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+    Transform randomSpawnPoint = spawnPointsChicken[Random.Range(0, spawnPointsChicken.Length)];
 
     // Spawn da galinha no ponto selecionado
     Instantiate(chickenPrefab, randomSpawnPoint.position, Quaternion.identity);

@@ -6,9 +6,6 @@ public class EnemyLife : MonoBehaviour {
     public int maxHealth = 100; // Vida máxima do inimigo
     private int currentHealth; // Vida atual do inimigo
     private Animator animator;
-
-
-     public EnemyChase enemyChase; // Referencia do Script EnemyChase
     private Renderer enemyRenderer; // Referência ao Renderer do inimigo
     private Color originalColor; // Cor original do inimigo
 
@@ -22,7 +19,6 @@ public class EnemyLife : MonoBehaviour {
         // Obter o componente Renderer do inimigo
         enemyRenderer = GetComponent<Renderer>();
         originalColor = enemyRenderer.material.color; // Salvar a cor original do inimigo
-        enemyChase = GetComponent<EnemyChase>(); // Atribuição do EnemyChase
     }
 
     // Método para detectar colisões com projéteis
@@ -37,7 +33,6 @@ public class EnemyLife : MonoBehaviour {
     // Método para receber dano
     public void TakeDamage(int damage) {
         currentHealth -= damage; // Reduzir a vida atual pelo dano recebido
-
         // Verificar se a vida chegou a zero
         if (currentHealth <= 0) {
             Die(); // Se sim, chamar o método Die
@@ -51,8 +46,10 @@ public class EnemyLife : MonoBehaviour {
         
         // Aqui você pode adicionar qualquer lógica relacionada à morte do inimigo,
        animator.SetTrigger("Morto");
-        ResetPathFunction();
-       //enemyChase.enemy.ResetPath();
+
+        // ResetPath() aqui
+        GetComponent<EnemyChase>().setIsChasing(false);
+
         // como destruir o objeto inimigo, tocar uma animação de morte, etc.
         Destroy(gameObject, 3f); // Neste exemplo, simplesmente destruímos o objeto inimigo
 

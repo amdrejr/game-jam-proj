@@ -7,14 +7,14 @@ public class ShotgunShoot : MonoBehaviour {
     public int damageAmount = 8;
     public int pelletsCount = 8; // Número de pellets (tiros) do shotgun
     private float projectileSpeed = 50f;
-    private float fireRate = 1.2f; // Quantidade de tempo entre cada tiro
+    private float fireRate = 1.2f;
     public float spreadAngle = 25f; // Ângulo de dispersão dos pellets
     private float nextFireTime;
 
     private Transform firePoint;
+    public AudioClip shootSound;
 
     private void Awake() {
-        // Obter o Transform do jogador
         firePoint = GetComponentInParent<Transform>();
     }
 
@@ -39,7 +39,7 @@ public class ShotgunShoot : MonoBehaviour {
             Vector3 shootDirection = spreadRotation * firePoint.forward;
 
             // Calcula a posição de início do projétil um pouco à frente do jogador
-            Vector3 startProjectilePosition = firePoint.position; // Ajuste a distância conforme necessário
+            Vector3 startProjectilePosition = firePoint.position;
 
             // Criar um novo projétil e instanciá-lo na posição ajustada
             GameObject projectile = Instantiate(projectilePrefab, startProjectilePosition, Quaternion.identity);
@@ -62,6 +62,11 @@ public class ShotgunShoot : MonoBehaviour {
 
             // Adicionar força ao projétil na direção calculada
             rb.velocity = shootDirection * projectileSpeed;
+
+            if (shootSound != null)
+            {
+                AudioSource.PlayClipAtPoint(shootSound, transform.position);
+            }
         }
     }
 }

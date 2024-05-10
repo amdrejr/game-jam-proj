@@ -5,11 +5,12 @@ public class PistolShoot : MonoBehaviour {
     public GameObject projectilePrefab;
     public int damageAmount = 30;
     private float projectileSpeed = 50f;
-    private float fireRate = 0.75f; // Quantidade de tempo entre cada tiro
+    private float fireRate = 0.75f;
     private float nextFireTime;
 
-    public GameObject weapon; // Transform do jogador
+    public GameObject weapon;
     private Transform firePoint;
+    public AudioClip shootSound;
 
     private void Awake() {
         // Atribuir automaticamente o Transform do objeto ao qual o script está anexado ao firePoint
@@ -52,6 +53,11 @@ public class PistolShoot : MonoBehaviour {
 
         // Adicionar força ao projétil na direção em que o jogador está olhando
         rb.velocity = firePoint.transform.forward * projectileSpeed;
+
+        if (shootSound != null)
+        {
+            AudioSource.PlayClipAtPoint(shootSound, transform.position);
+        }
     }
 }
 

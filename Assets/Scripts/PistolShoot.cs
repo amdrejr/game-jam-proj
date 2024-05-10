@@ -8,11 +8,12 @@ public class PistolShoot : MonoBehaviour {
     private float fireRate = 0.75f; // Quantidade de tempo entre cada tiro
     private float nextFireTime;
 
-    private Transform firePoint; // Agora, firePoint não precisa ser público
+    public GameObject weapon; // Transform do jogador
+    private Transform firePoint;
 
     private void Awake() {
         // Atribuir automaticamente o Transform do objeto ao qual o script está anexado ao firePoint
-        firePoint = GetComponent<Transform>();
+        firePoint = GetComponentInParent<Transform>();
     }
 
     void Update() {
@@ -28,10 +29,10 @@ public class PistolShoot : MonoBehaviour {
 
     void Shoot() {
         // Calcula a posição de início do projétil um pouco à frente do firePoint
-        Vector3 startProjectilePosition = firePoint.position + firePoint.forward * 0.5f; // Ajuste a distância conforme necessário
+        Vector3 startProjectilePosition = firePoint.position; // Ajuste a distância conforme necessário
 
         // Criar um novo projétil e instanciá-lo na posição ajustada
-        GameObject projectile = Instantiate(projectilePrefab, startProjectilePosition, firePoint.rotation);
+        GameObject projectile = Instantiate(projectilePrefab, startProjectilePosition, firePoint.transform.rotation);
 
         // Destruir o projétil após 3 segundos
         Destroy(projectile, 3f);
@@ -50,7 +51,7 @@ public class PistolShoot : MonoBehaviour {
         }
 
         // Adicionar força ao projétil na direção em que o jogador está olhando
-        rb.velocity = firePoint.forward * projectileSpeed;
+        rb.velocity = firePoint.transform.forward * projectileSpeed;
     }
 }
 

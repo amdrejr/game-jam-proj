@@ -11,15 +11,12 @@ public class ShotgunShoot : MonoBehaviour {
     public float spreadAngle = 25f; // Ângulo de dispersão dos pellets
     private float nextFireTime;
 
-    private Transform firePoint; // Ponto de origem dos tiros
-    private Transform playerTransform; // Transform do jogador
+    public GameObject weapon; // Transform do jogador
+    private Transform firePoint;
 
     private void Awake() {
-        // Atribuir automaticamente o Transform do objeto ao qual o script está anexado ao firePoint
-        firePoint = GetComponent<Transform>();
-
         // Obter o Transform do jogador
-        playerTransform = GameObject.FindWithTag("Player").transform;
+        firePoint = weapon.GetComponentInParent<Transform>();
     }
 
     void Update() {
@@ -43,7 +40,7 @@ public class ShotgunShoot : MonoBehaviour {
             Vector3 shootDirection = spreadRotation * firePoint.forward;
 
             // Calcula a posição de início do projétil um pouco à frente do jogador
-            Vector3 startProjectilePosition = playerTransform.position + playerTransform.forward * 0.5f; // Ajuste a distância conforme necessário
+            Vector3 startProjectilePosition = firePoint.position; // Ajuste a distância conforme necessário
 
             // Criar um novo projétil e instanciá-lo na posição ajustada
             GameObject projectile = Instantiate(projectilePrefab, startProjectilePosition, Quaternion.identity);

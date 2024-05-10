@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemySpawner : MonoBehaviour {
+public class TurnManager : MonoBehaviour {
     public GameObject enemyPrefab;
     public GameObject chickenPrefab;
     public int initialEnemiesPerWave = 3;
@@ -15,14 +15,16 @@ public class EnemySpawner : MonoBehaviour {
     // Referências para os objetos de texto na UI
     public Text textAlert;
 
+    public AudioClip[] listAudio;
+
     // Pontos de spawn nos cantos do mapa
     public Transform[] spawnPointsEnemies;
     public Transform[] spawnPointsChicken;
-
-    
+    public AudioSource audioSource;
 
     private void Start() {
         StartNextWave();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void StartNextWave() {
@@ -33,6 +35,8 @@ public class EnemySpawner : MonoBehaviour {
 
     private IEnumerator SpawnWave(int enemiesToSpawn) {
         StartCoroutine(ShowAndHideMessage(textAlert, "O ataque começou!", 3f));
+        audioSource.clip = listAudio[0];
+        audioSource.Play();
         for (int i = 0; i < enemiesToSpawn; i++) {
             // Escolhe aleatoriamente um ponto de spawn nos cantos do mapa
             Transform randomSpawnPoint = spawnPointsEnemies[Random.Range(0, spawnPointsEnemies.Length)];

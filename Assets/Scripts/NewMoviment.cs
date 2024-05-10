@@ -19,7 +19,7 @@ public class NewMoviment : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        _movementPlayer = (transform.right * vertical) + (transform.forward * horizontal);
+        _movementPlayer = (transform.right * horizontal) + (transform.forward * vertical);
         characterPlayer.Move(_movementPlayer.normalized * characterSpeedy * Time.deltaTime);
     }
 }

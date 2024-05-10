@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.982
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.58502305, g: 0.44376108, b: 0.3344276, a: 0.982}
+  m_IndirectSpecularColor: {r: 0.5853018, g: 0.4434444, b: 0.3345063, a: 0.982}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1920,7 +1920,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 872128594}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &872128596
 Camera:
   m_ObjectHideFlags: 0

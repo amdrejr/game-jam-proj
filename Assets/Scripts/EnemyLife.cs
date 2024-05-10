@@ -17,8 +17,8 @@ public class EnemyLife : MonoBehaviour {
         currentHealth = maxHealth; // Configurar a vida inicial
         animator = GetComponent<Animator>();
         // Obter o componente Renderer do inimigo
-        enemyRenderer = GetComponent<Renderer>();
-        originalColor = enemyRenderer.material.color; // Salvar a cor original do inimigo
+        // enemyRenderer = GetComponent<Renderer>();
+        // originalColor = enemyRenderer.material.color; // Salvar a cor original do inimigo
     }
 
     // Método para detectar colisões com projéteis

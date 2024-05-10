@@ -8,7 +8,7 @@ public class EnemyChase : MonoBehaviour {
     
     private GameObject playerGameObject;
 
-    private bool isChasing = true;
+    public bool isChasing = true;
     private Animator animator;
     private float distAtk;
     [SerializeField] private float distLimit;

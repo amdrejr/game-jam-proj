@@ -22,7 +22,7 @@ public class EnemyLife : MonoBehaviour {
     }
 
     // Método para detectar colisões com projéteis
-    private void OnCollisionStay(Collision collision) {
+    public void OnCollisionStay(Collision collision) {
         if (collision.collider.CompareTag("Projectile")) {
             TakeDamage(collision.collider.GetComponent<Projectile>().damageAmount); // Chamar o método TakeDamage com o dano do projétil
             Destroy(collision.gameObject);
@@ -45,7 +45,7 @@ public class EnemyLife : MonoBehaviour {
     public void Die() {
         
         // Aqui você pode adicionar qualquer lógica relacionada à morte do inimigo,
-       animator.SetTrigger("Morto");
+       animator.SetBool("Morto", true);
 
         // ResetPath() aqui
         GetComponent<EnemyChase>().setIsChasing(false);

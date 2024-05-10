@@ -12,7 +12,7 @@ public class EnemyDamage : MonoBehaviour {
     public AudioClip damageSound;
 
     private void OnCollisionStay(Collision collision) {
-        if (collision.collider.CompareTag("Player")) {
+        if (collision.collider.CompareTag("Player") && GetComponent<EnemyChase>().isChasing) {
             if (Time.time - lastAttackTime >= attackInterval) {
                 animator.SetBool("Ataque", true);
                 // Som

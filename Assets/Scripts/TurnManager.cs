@@ -52,7 +52,10 @@ public class TurnManager : MonoBehaviour {
         while (spawnedEnemies.Count > 0) {
             yield return null;
         }
+
         StartCoroutine(ShowAndHideMessage(textAlert, "Wave finalizada", 3f));
+        audioSource.clip = listAudio[1];
+        audioSource.Play();
 
         // Chama a função para spawnar a galinha
         print("spawnando galinha");

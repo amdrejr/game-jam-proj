@@ -8,7 +8,7 @@ public class EnemyDamage : MonoBehaviour {
     private float lastAttackTime;
 
     private Animator animator;
-
+    public AudioSource audioSource;
     public AudioClip damageSound;
 
     private void OnCollisionStay(Collision collision) {
@@ -28,13 +28,15 @@ IEnumerator Atacando(PlayerLife playerLife){
         yield return new WaitForSeconds(0.4f); // Espera a duração da animação de ataque
         animator.SetBool("Ataque", false);
         if(damageSound != null){
-                    AudioSource.PlayClipAtPoint(damageSound, transform.position);
-                }
+                audioSource.clip = damageSound;
+                audioSource.Play();
+        }
         playerLife.TakeDamage(Damage);    
     }
     // Start is called before the first frame update
     void Start() {
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame

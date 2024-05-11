@@ -7,10 +7,17 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rig;
     private Camera mainCamera; // Referência para a câmera principal
 
+    private float moveThreshold = 0.5f;
+    private Animator animator;
+
+    private float movementThreshold = 0.1f;
+
+
     void Start()
     {
         rig = GetComponent<Rigidbody>();
         mainCamera = Camera.main; // Obter a referência para a câmera principal
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -32,6 +39,21 @@ public class PlayerMovement : MonoBehaviour
         Vector3 newPosition = transform.position + movement * speed * Time.fixedDeltaTime;
 
         rig.MovePosition(newPosition);
+
+        float currentSpeed = rig.velocity.magnitude;
+
+        // Define parâmetros na Animator com base na velocidade
+        animator.SetFloat("Speed", currentSpeed);
+
+        // Define parâmetro para controlar a transição entre movimento e parada
+        if (currentSpeed > movementThreshold)
+        {
+            animator.SetBool("IsMoving", true);
+        }
+        else
+        {
+            animator.SetBool("IsMoving", false);
+        }
     }
 
     void UpdateAimPosition()

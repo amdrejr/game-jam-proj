@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,6 +9,7 @@ public class EnemyLife : MonoBehaviour {
     private Animator animator;
     private Renderer enemyRenderer; // Referência ao Renderer do inimigo
     private Color originalColor; // Cor original do inimigo
+    private bool isDead = false; // Flag para verificar se o inimigo está morto
 
     // Variáveis para o efeito de piscar em vermelho
     public float flashDuration = 0.1f; // Duração do flash vermelho
@@ -34,8 +36,8 @@ public class EnemyLife : MonoBehaviour {
     public void TakeDamage(int damage) {
         currentHealth -= damage; // Reduzir a vida atual pelo dano recebido
         // Verificar se a vida chegou a zero
-        if (currentHealth <= 0) {
-            Die(); // Se sim, chamar o método Die
+        if (currentHealth <= 0 && !isDead) {
+            Die();
         } else {
             //StartCoroutine(FlashRed()); // Caso contrário, iniciar a corrotina para piscar em vermelho
         }
@@ -43,17 +45,11 @@ public class EnemyLife : MonoBehaviour {
 
     // Método para a morte do inimigo
     public void Die() {
-        
-        // Aqui você pode adicionar qualquer lógica relacionada à morte do inimigo,
-       animator.SetBool("Morto", true);
-
-        // ResetPath() aqui
-        GetComponent<EnemyChase>().setIsChasing(false);
-
-        // como destruir o objeto inimigo, tocar uma animação de morte, etc.
-        Destroy(gameObject, 3f); // Neste exemplo, simplesmente destruímos o objeto inimigo
-
-
+        isDead = true; // Atualizar a flag de morte
+        animator.SetBool("Morto", true); // Animação de morte,
+        GetComponent<EnemyChase>().setIsChasing(false); // ResetPath() aqui
+        FindObjectOfType<TurnManager>().addPoints(50); // Adiciona pontos ao jogador
+        Destroy(gameObject, 3f); // destruímos o objeto inimigo
     }
     // Corrotina para o efeito de piscar em vermelho
     // IEnumerator FlashRed() {

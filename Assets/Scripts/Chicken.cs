@@ -19,6 +19,9 @@ public class Chicken : MonoBehaviour {
             Destroy(gameObject);
             // Chama o método Heal para curá-lo
             Heal(healingAmount);
+
+            // Adiciona pontos ao jogador
+            FindObjectOfType<TurnManager>().addPoints(10);
         }
     }
 

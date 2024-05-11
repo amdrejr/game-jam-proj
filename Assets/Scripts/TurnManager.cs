@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemySpawner : MonoBehaviour {
+public class TurnManager : MonoBehaviour {
     public GameObject enemyPrefab;
     public GameObject chickenPrefab;
     public int initialEnemiesPerWave = 3;
@@ -12,17 +12,19 @@ public class EnemySpawner : MonoBehaviour {
     public float waveInterval = 3f; // Intervalo entre ondas
     private int currentWave = 1;
     private List<GameObject> spawnedEnemies = new List<GameObject>();
-    // Referências para os objetos de texto na UI
-    public Text textAlert;
-
     // Pontos de spawn nos cantos do mapa
     public Transform[] spawnPointsEnemies;
     public Transform[] spawnPointsChicken;
-
     
+    // Referências para os objetos de texto na UI
+    public Text textAlert;
+    public Text textRound;
+    public Text textPoints;
+    private int points = 0;
 
     private void Start() {
         StartNextWave();
+        textRound.text = "ROUND " + currentWave.ToString("D3");
     }
 
     private void StartNextWave() {
@@ -56,12 +58,14 @@ public class EnemySpawner : MonoBehaviour {
 
         yield return new WaitForSeconds(waveInterval);
         currentWave++;
+        textRound.text = "ROUND " + currentWave.ToString("D3");
 
         StartNextWave();
     }
 
     private void Update() {
         CheckEnemyStatus();
+        textPoints.text = "Points " + points.ToString("D5");
     }
 
     private void CheckEnemyStatus() {
@@ -86,10 +90,15 @@ public class EnemySpawner : MonoBehaviour {
     }
 
     private void SpawnChicken() {
-    // Escolhe aleatoriamente um ponto de spawn nos cantos do mapa para a galinha
-    Transform randomSpawnPoint = spawnPointsChicken[Random.Range(0, spawnPointsChicken.Length)];
+        // Escolhe aleatoriamente um ponto de spawn nos cantos do mapa para a galinha
+        Transform randomSpawnPoint = spawnPointsChicken[Random.Range(0, spawnPointsChicken.Length)];
 
-    // Spawn da galinha no ponto selecionado
-    Instantiate(chickenPrefab, randomSpawnPoint.position, Quaternion.identity);
-}
+        // Spawn da galinha no ponto selecionado
+        Instantiate(chickenPrefab, randomSpawnPoint.position, Quaternion.identity);
+    }
+
+    public void addPoints(int points) {
+        this.points += points;
+        print("POINTS: " + this.points);
+    }
 }

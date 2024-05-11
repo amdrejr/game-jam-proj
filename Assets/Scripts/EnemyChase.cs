@@ -5,9 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyChase : MonoBehaviour {
     [SerializeField] public NavMeshAgent enemy;
-    
     private GameObject playerGameObject;
-
     public bool isChasing = true;
     private Animator animator;
     private float distAtk;
@@ -18,9 +16,6 @@ public class EnemyChase : MonoBehaviour {
     void Start() {
         playerGameObject = GameObject.Find("Player");
         animator = GetComponent<Animator>();
-
-        
-        
     }
 
     // Update is called once per frame

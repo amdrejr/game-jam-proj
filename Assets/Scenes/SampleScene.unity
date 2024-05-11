@@ -2363,7 +2363,7 @@ RectTransform:
   m_GameObject: {fileID: 968265104}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.94999, y: 0.89957, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 966108990}
@@ -2526,8 +2526,6 @@ MonoBehaviour:
   enemiesIncreasePerWave: 2
   spawnInterval: 2
   waveInterval: 3
-  textAlert: {fileID: 1330797841}
-  textRound: {fileID: 0}
   spawnPointsEnemies:
   - {fileID: 636799762}
   - {fileID: 1969615669}
@@ -2537,7 +2535,9 @@ MonoBehaviour:
   - {fileID: 1647890929}
   - {fileID: 941996556}
   - {fileID: 197236658}
-  textPoints: {fileID: 0}
+  textAlert: {fileID: 1330797841}
+  textRound: {fileID: 1207872276}
+  textPoints: {fileID: 1545291018}
 --- !u!1 &990084155
 GameObject:
   m_ObjectHideFlags: 0
@@ -3963,7 +3963,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.754717, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

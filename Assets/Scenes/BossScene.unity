@@ -1935,16 +1935,13 @@ PrefabInstance:
       addedObject: {fileID: 1021517589}
     - targetCorrespondingSourceObject: {fileID: 7962199819078159310, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1021517588}
-    - targetCorrespondingSourceObject: {fileID: 7962199819078159310, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1021517587}
     - targetCorrespondingSourceObject: {fileID: 7962199819078159310, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1021517591}
+      addedObject: {fileID: 1021517590}
     - targetCorrespondingSourceObject: {fileID: 7962199819078159310, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1021517590}
+      addedObject: {fileID: 1021517594}
   m_SourcePrefab: {fileID: 100100000, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
 --- !u!1 &1021517586 stripped
 GameObject:
@@ -1961,10 +1958,10 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 12
+  m_Speed: 8
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 80
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -1973,21 +1970,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1021517588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1021517586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 125e3b6a54615cb4e90b9305787446e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemy: {fileID: 1021517587}
-  isChasing: 1
-  distLimit: 7
 --- !u!65 &1021517589
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2007,7 +1989,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 1.52, z: 3.24}
+  m_Size: {x: 2, y: 1.79, z: 3.24}
   m_Center: {x: 0, y: 0.86, z: 0.13}
 --- !u!114 &1021517590
 MonoBehaviour:
@@ -2021,10 +2003,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 187652a14dda4c247a04a5d34ee14a3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 50
+  agent: {fileID: 1021517587}
   attackInterval: 2
   damageSound: {fileID: 0}
---- !u!114 &1021517591
+--- !u!114 &1021517594
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2033,12 +2015,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1021517586}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c286ec18eb1cf4a43bce96f3190263ce, type: 3}
+  m_Script: {fileID: 11500000, guid: 125e3b6a54615cb4e90b9305787446e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 500
-  flashDuration: 0.1
-  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  enemy: {fileID: 1021517587}
+  isChasing: 1
 --- !u!1 &1048957747
 GameObject:
   m_ObjectHideFlags: 0
@@ -2221,7 +2202,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: {fileID: 1117570504}
   isChasing: 1
-  distLimit: 7
 --- !u!95 &1117570503
 Animator:
   serializedVersion: 5
@@ -5507,7 +5487,7 @@ PrefabInstance:
       objectReference: {fileID: 1889058705}
     - target: {fileID: 5314354163769729261, guid: 9b49402fba080844d84872bc7ec0575e, type: 3}
       propertyPath: speed
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5314354163769729261, guid: 9b49402fba080844d84872bc7ec0575e, type: 3}
       propertyPath: projectilePrefab

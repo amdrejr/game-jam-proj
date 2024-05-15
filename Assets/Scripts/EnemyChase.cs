@@ -8,8 +8,6 @@ public class EnemyChase : MonoBehaviour {
     private GameObject playerGameObject;
     public bool isChasing = true;
     private Animator animator;
-    private float distAtk;
-    [SerializeField] private float distLimit;
     
     
     // Start is called before the first frame update
@@ -33,9 +31,6 @@ public class EnemyChase : MonoBehaviour {
         public void setIsChasing(bool b) {
         isChasing = b;
     }
-   
-
-
 
     // public void AtaqueVilao(){
     //     if(playerGameObject != null && Vector3.Distance(transform.position, playerGameObject.transform.position) <= distAtack){

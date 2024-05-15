@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
-public class BearBoss : MonoBehaviour {
+public class EnemyBoss : MonoBehaviour {
+    [SerializeField] public Slider bossLifeSlider;
     [SerializeField] public NavMeshAgent agent;
     private int Damage = 10;
     public float attackInterval = 1f; // Intervalo de tempo entre cada dano
     private float lastAttackTime;
     private Animator animator;
     public AudioClip damageSound;
-    private int maxHealth = 1000; // Vida máxima do inimigo
-    private int currentHealth; // Vida atual do inimigo
+    // private int maxHealth = 1000; // Vida máxima do inimigo
     private bool isDead = false;
     private string actualAttack;
 
     void Start() {
-        currentHealth = maxHealth; // Configurar a vida inicial
         animator = GetComponent<Animator>();
         StartCoroutine(VelocityIncrease());
     }
@@ -31,7 +31,7 @@ public class BearBoss : MonoBehaviour {
             if (Time.time - lastAttackTime >= attackInterval) {
                 animator.SetBool(actualAttack, true);
                 // Som
-                print(actualAttack + " Atacou, " + currentHealth);
+                print(actualAttack + " Atacou, " + bossLifeSlider);
                 StartCoroutine(Atacando(collision.collider.GetComponent<PlayerLife>()));
                 lastAttackTime = Time.time;
             }
@@ -62,28 +62,28 @@ public class BearBoss : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if ( currentHealth <= 800 && currentHealth > 600) {
+        if ( bossLifeSlider.value <= 800 && bossLifeSlider.value > 600) {
             actualAttack = "Attack2";
-            Damage = 2;
-        } else if (currentHealth <= 600 && currentHealth > 400) {
+            Damage = 15;
+        } else if (bossLifeSlider.value <= 600 && bossLifeSlider.value > 400) {
             actualAttack = "Attack3";
-            Damage = 3;
-        } else if (currentHealth <= 400 && currentHealth > 200) {
+            Damage = 20;
+        } else if (bossLifeSlider.value <= 400 && bossLifeSlider.value > 200) {
             actualAttack = "Attack4";
-            Damage = 4;
-        } else if (currentHealth <= 200 && currentHealth > 0) {
+            Damage = 30;
+        } else if (bossLifeSlider.value <= 200 && bossLifeSlider.value > 0) {
             actualAttack = "Attack5";
-            Damage = 5;
+            Damage = 40;
         } else {
             actualAttack = "Attack1";
-            Damage = 1;
+            Damage = 10;
         }
     }
 
     public void TakeDamage(int damage) {
-        currentHealth -= damage; // Reduzir a vida atual pelo dano recebido
+        bossLifeSlider.value -= damage; // Reduzir a vida atual pelo dano recebido
         // Verificar se a vida chegou a zero
-        if (currentHealth <= 0 && !isDead) {
+        if (bossLifeSlider.value <= 0 && !isDead) {
             Die();
         } else {
             //StartCoroutine(FlashRed()); // Caso contrário, iniciar a corrotina para piscar em vermelho

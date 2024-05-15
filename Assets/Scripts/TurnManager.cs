@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class TurnManager : MonoBehaviour {
     public GameObject enemyPrefab;
     public GameObject chickenPrefab;
+    public GameObject bossPrefab;
+    public Slider bossLifeSlider;
     public int initialEnemiesPerWave = 3;
     public int enemiesIncreasePerWave = 2;
     public float spawnInterval = 2f;
@@ -35,21 +37,33 @@ public class TurnManager : MonoBehaviour {
 
     private IEnumerator SpawnWave(int enemiesToSpawn) {
         StartCoroutine(ShowAndHideMessage(textAlert, "O ataque começou!", 3f));
-        for (int i = 0; i < enemiesToSpawn; i++) {
-            // Escolhe aleatoriamente um ponto de spawn nos cantos do mapa
+        
+        if(currentWave % 2 == 0) {
+            bossLifeSlider.gameObject.SetActive(true);
+            bossLifeSlider.value = 2000;
+            // Spawn do boss
+            print("Spawnando boss");
             Transform randomSpawnPoint = spawnPointsEnemies[Random.Range(0, spawnPointsEnemies.Length)];
-
-            // Spawn do inimigo no ponto selecionado
-            GameObject newEnemy = Instantiate(enemyPrefab, randomSpawnPoint.position, Quaternion.identity);
+            GameObject newEnemy = Instantiate(bossPrefab, randomSpawnPoint.position, Quaternion.identity);
             spawnedEnemies.Add(newEnemy);
+        } else {
+            for (int i = 0; i < enemiesToSpawn; i++) {
+                // Escolhe aleatoriamente um ponto de spawn nos cantos do mapa
+                Transform randomSpawnPoint = spawnPointsEnemies[Random.Range(0, spawnPointsEnemies.Length)];
 
-            yield return new WaitForSeconds(spawnInterval);
+                // Spawn do inimigo no ponto selecionado
+                GameObject newEnemy = Instantiate(enemyPrefab, randomSpawnPoint.position, Quaternion.identity);
+                spawnedEnemies.Add(newEnemy);
+
+                yield return new WaitForSeconds(spawnInterval);
+            }
         }
 
         // Aguarda até que todos os inimigos da onda atual tenham sido derrotados
         while (spawnedEnemies.Count > 0) {
             yield return null;
         }
+        bossLifeSlider.gameObject.SetActive(false);
         StartCoroutine(ShowAndHideMessage(textAlert, "Wave finalizada", 3f));
 
         // Chama a função para spawnar a galinha

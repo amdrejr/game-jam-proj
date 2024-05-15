@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TurnManager : MonoBehaviour {
+    public GameObject Player;
     public GameObject enemyPrefab;
     public GameObject chickenPrefab;
     public GameObject bossPrefab;
@@ -23,6 +24,7 @@ public class TurnManager : MonoBehaviour {
     public Text textRound;
     public Text textPoints;
     private int points = 0;
+    private Coroutine currentWaveCoroutine;
 
     private void Start() {
         StartNextWave();
@@ -30,9 +32,15 @@ public class TurnManager : MonoBehaviour {
     }
 
     private void StartNextWave() {
+        // Interrompe a corrotina atual, se estiver em execução
+        if (currentWaveCoroutine != null) {
+            StopCoroutine(currentWaveCoroutine);
+        }
         int enemiesToSpawn = initialEnemiesPerWave + (currentWave - 1) * enemiesIncreasePerWave;
         print("Iniciando Wave: " + enemiesToSpawn + " Inimigos");
-        StartCoroutine(SpawnWave(enemiesToSpawn));
+
+        // Inicia a corrotina para spawnar a onda atual
+        currentWaveCoroutine = StartCoroutine(SpawnWave(enemiesToSpawn));
     }
 
     private IEnumerator SpawnWave(int enemiesToSpawn) {
@@ -71,10 +79,9 @@ public class TurnManager : MonoBehaviour {
         SpawnChicken();
 
         yield return new WaitForSeconds(waveInterval);
+        StartNextWave();
         currentWave++;
         textRound.text = "ROUND " + currentWave.ToString("D3");
-
-        StartNextWave();
     }
 
     private void Update() {
@@ -114,5 +121,24 @@ public class TurnManager : MonoBehaviour {
     public void addPoints(int points) {
         this.points += points;
         print("POINTS: " + this.points);
+    }
+
+    public void restartGame() {
+        Debug.Log("Reiniciando jogo");
+
+        foreach (GameObject enemy in spawnedEnemies) {
+            Destroy(enemy);
+        }
+        spawnedEnemies.Clear();
+        currentWave = 1;
+        points = 0;
+        textRound.text = "ROUND " + currentWave.ToString("D3");
+        StartNextWave();
+
+        Player.GetComponent<PlayerLife>().Vida.value = 100f;
+        Player.GetComponent<PlayerLife>().disableGameOverUI();
+        Player.SetActive(true);
+
+        Player.transform.position = new Vector3(125, 20, 101);
     }
 }

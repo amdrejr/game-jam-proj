@@ -2538,6 +2538,7 @@ MonoBehaviour:
   textAlert: {fileID: 1330797841}
   textRound: {fileID: 1207872276}
   textPoints: {fileID: 1545291018}
+  waveBoss: 2
 --- !u!1 &990084155
 GameObject:
   m_ObjectHideFlags: 0

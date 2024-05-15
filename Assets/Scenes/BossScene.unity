@@ -6017,9 +6017,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 3000
+  m_MaxValue: 2000
   m_WholeNumbers: 0
-  m_Value: 3
+  m_Value: 2
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -6115,7 +6115,7 @@ PrefabInstance:
       objectReference: {fileID: 1789614506}
     - target: {fileID: 615530107313405456, guid: 9b49402fba080844d84872bc7ec0575e, type: 3}
       propertyPath: damageAmount
-      value: 20
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 615530107313405456, guid: 9b49402fba080844d84872bc7ec0575e, type: 3}
       propertyPath: projectilePrefab
@@ -6127,7 +6127,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3416226151538505362, guid: 9b49402fba080844d84872bc7ec0575e, type: 3}
       propertyPath: damageAmount
-      value: 35
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3416226151538505362, guid: 9b49402fba080844d84872bc7ec0575e, type: 3}
       propertyPath: projectilePrefab

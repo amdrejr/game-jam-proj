@@ -58,18 +58,19 @@ public class EnemyBoss : MonoBehaviour {
 
     IEnumerator Atacando2(){
         agent.isStopped = true;
-        GetComponent<EnemyChase>().setCanAttack(false);
+       // GetComponent<EnemyChase>().setCanAttack(false);
+        
+        yield return new WaitForSeconds(0.8f); // Espera a duração da animação de ataque
+        
         if(damageSound != null){
             AudioSource.PlayClipAtPoint(damageSound, transform.position);
         }
-        yield return new WaitForSeconds(0.8f); // Espera a duração da animação de ataque
-        
          animator.SetBool(actualAttack, false);
          agent.isStopped = false;
-         GetComponent<EnemyChase>().setCanAttack(true);
+
+       //  GetComponent<EnemyChase>().setCanAttack(true);
          
          yield return new WaitForSeconds(0.2f);
-        
         canAttack = true;
           
     }
@@ -98,12 +99,12 @@ public class EnemyBoss : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if(Vector3.Distance(transform.position, player.transform.position ) <= 30f){
+        if(Vector3.Distance(transform.position, player.transform.position ) <= 35f && canAttack){
             animator.SetBool(actualAttack, true);
             canAttack = false;
             StartCoroutine(Atacando2());
             }
-        if ( bossLifeSlider.value <= 800) {
+        if ( bossLifeSlider.value <= 1000) {
             actualAttack = "Attack2";
             Damage = 30;
         } else {

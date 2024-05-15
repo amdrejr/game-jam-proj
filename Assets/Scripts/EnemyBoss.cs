@@ -5,20 +5,31 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class EnemyBoss : MonoBehaviour {
+
+    private GameObject player;
     [SerializeField] public Slider bossLifeSlider;
     [SerializeField] public NavMeshAgent agent;
     private int Damage = 10;
     public float attackInterval = 1f; // Intervalo de tempo entre cada dano
     private float lastAttackTime;
+    private float lastAttackInterval;
     private Animator animator;
     public AudioClip damageSound;
-    // private int maxHealth = 1000; // Vida máxima do inimigo
+     //private int maxHealth = 1000; // Vida máxima do inimigo
     private bool isDead = false;
     private string actualAttack;
 
+    private bool canAttack = true;
+
+    public float stoppingDistance = 0.2f;
+
+
+    
     void Start() {
         animator = GetComponent<Animator>();
         StartCoroutine(VelocityIncrease());
+        agent.stoppingDistance = stoppingDistance;
+        player = GameObject.Find("Player");
     }
 
     private void OnCollisionStay(Collision collision) {
@@ -27,25 +38,50 @@ public class EnemyBoss : MonoBehaviour {
             Destroy(collision.gameObject);
         }
 
-        if (collision.collider.CompareTag("Player") && GetComponent<EnemyChase>().isChasing) {
+        
+        if (collision.collider.CompareTag("Player")&& GetComponent<EnemyChase>().isChasing  ) {
+          
             if (Time.time - lastAttackTime >= attackInterval) {
+                
                 // animator.SetBool(actualAttack, true);
                 // Som
-                print(actualAttack + " Atacou, " + bossLifeSlider);
-                StartCoroutine(Atacando(collision.collider.GetComponent<PlayerLife>()));
+              // print(actualAttack + " Atacou, " + bossLifeSlider);
+                // StartCoroutine(Atacando(collision.collider.GetComponent<PlayerLife>()));
+                collision.collider.GetComponent<PlayerLife>().TakeDamage(Damage);
                 lastAttackTime = Time.time;
             }
-        }
+        } 
+
     }
 
-    IEnumerator Atacando(PlayerLife playerLife){
-        yield return new WaitForSeconds(0.4f); // Espera a duração da animação de ataque
-        // animator.SetBool(actualAttack, false);
+
+
+    IEnumerator Atacando2(){
+        agent.isStopped = true;
+        GetComponent<EnemyChase>().setCanAttack(false);
         if(damageSound != null){
             AudioSource.PlayClipAtPoint(damageSound, transform.position);
         }
-        playerLife.TakeDamage(Damage);    
+        yield return new WaitForSeconds(0.8f); // Espera a duração da animação de ataque
+        
+         animator.SetBool(actualAttack, false);
+         agent.isStopped = false;
+         GetComponent<EnemyChase>().setCanAttack(true);
+         
+         yield return new WaitForSeconds(0.2f);
+        
+        canAttack = true;
+          
     }
+
+    // IEnumerator Atacando(PlayerLife playerLife){
+    //     yield return new WaitForSeconds(0.3f); // Espera a duração da animação de ataque
+    //      animator.SetBool(actualAttack, false);
+    //     if(damageSound != null){
+    //         AudioSource.PlayClipAtPoint(damageSound, transform.position);
+    //     }
+    //     playerLife.TakeDamage(Damage);    
+    // }
     // Start is called before the first frame update
 
     IEnumerator VelocityIncrease(){
@@ -62,10 +98,20 @@ public class EnemyBoss : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if ( bossLifeSlider.value <= 800 && bossLifeSlider.value > 600) {
+        if(Vector3.Distance(transform.position, player.transform.position ) <= 30f){
+            animator.SetBool(actualAttack, true);
+            canAttack = false;
+            StartCoroutine(Atacando2());
+            }
+        if ( bossLifeSlider.value <= 800) {
             actualAttack = "Attack2";
+            Damage = 30;
+        } else {
+            actualAttack = "Attack1";
             Damage = 15;
-        } else if (bossLifeSlider.value <= 600 && bossLifeSlider.value > 400) {
+        }
+        print(Vector3.Distance(transform.position, player.transform.position ));
+        /*if (bossLifeSlider.value <= 550 && bossLifeSlider.value > 550) {
             actualAttack = "Attack3";
             Damage = 20;
         } else if (bossLifeSlider.value <= 400 && bossLifeSlider.value > 200) {
@@ -74,10 +120,11 @@ public class EnemyBoss : MonoBehaviour {
         } else if (bossLifeSlider.value <= 200 && bossLifeSlider.value > 0) {
             actualAttack = "Attack5";
             Damage = 40;
-        } else {
-            actualAttack = "Attack1";
-            Damage = 10;
-        }
+        } */ 
+           
+            
+
+
     }
 
     public void TakeDamage(int damage) {

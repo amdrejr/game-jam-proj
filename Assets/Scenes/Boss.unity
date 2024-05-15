@@ -23,10 +23,10 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 1.19
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: cdbb40e11399e4a17882ada20a1b896a, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -35,10 +35,10 @@ RenderSettings:
   m_DefaultReflectionMode: 0
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
-  m_ReflectionIntensity: 1
+  m_ReflectionIntensity: 0.321
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.038765103, g: 0.059845425, b: 0.10760833, a: 0.321}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: bcab68ffdbcc6f6469e05968d15db29a, type: 2}
+  m_NavMeshData: {fileID: 0}
 --- !u!1 &11752851
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,7 +294,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 187652a14dda4c247a04a5d34ee14a3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 50
+  bossLifeSlider: {fileID: 0}
+  agent: {fileID: 0}
   attackInterval: 2
   damageSound: {fileID: 0}
 --- !u!114 &266826511
@@ -348,7 +349,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: {fileID: 266826512}
   isChasing: 1
-  distLimit: 7
 --- !u!65 &266826514
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -455,13 +455,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 515907536}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.29213342, y: 0.63899827, z: -0.28677276, w: 0.6512301}
-  m_LocalPosition: {x: -13.2, y: 66.5, z: 74.3}
+  m_LocalRotation: {x: 0.36526752, y: 0.60020053, z: -0.3613829, w: 0.6129775}
+  m_LocalPosition: {x: 14.3, y: 75.9, z: 74.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 48.33, y: 88.907, z: -0.014}
+  m_LocalEulerAnglesHint: {x: 61.837, y: 88.461, z: -0.555}
 --- !u!1001 &827101528
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -566,11 +566,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7292658344771522932, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 132.7
+      value: 55.6
       objectReference: {fileID: 0}
     - target: {fileID: 7292658344771522932, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.2
+      value: -0.8
       objectReference: {fileID: 0}
     - target: {fileID: 7292658344771522932, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
       propertyPath: m_LocalPosition.z

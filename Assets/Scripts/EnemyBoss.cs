@@ -29,7 +29,7 @@ public class EnemyBoss : MonoBehaviour {
 
         if (collision.collider.CompareTag("Player") && GetComponent<EnemyChase>().isChasing) {
             if (Time.time - lastAttackTime >= attackInterval) {
-                animator.SetBool(actualAttack, true);
+                // animator.SetBool(actualAttack, true);
                 // Som
                 print(actualAttack + " Atacou, " + bossLifeSlider);
                 StartCoroutine(Atacando(collision.collider.GetComponent<PlayerLife>()));
@@ -40,7 +40,7 @@ public class EnemyBoss : MonoBehaviour {
 
     IEnumerator Atacando(PlayerLife playerLife){
         yield return new WaitForSeconds(0.4f); // Espera a duração da animação de ataque
-        animator.SetBool(actualAttack, false);
+        // animator.SetBool(actualAttack, false);
         if(damageSound != null){
             AudioSource.PlayClipAtPoint(damageSound, transform.position);
         }
@@ -93,7 +93,7 @@ public class EnemyBoss : MonoBehaviour {
     public void Die() {
         GetComponent<EnemyChase>().setIsChasing(false); // ResetPath() aqui
         isDead = true; // Atualizar a flag de morte
-        animator.SetBool("Death", true); // Animação de morte,
+        // animator.SetBool("Death", true); // Animação de morte,
         FindObjectOfType<TurnManager>().addPoints(50); // Adiciona pontos ao jogador
         Destroy(gameObject, 3f); // destruímos o objeto inimigo
     }

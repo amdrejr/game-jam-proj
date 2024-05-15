@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.982
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.58502305, g: 0.44376108, b: 0.3344276, a: 0.982}
+  m_IndirectSpecularColor: {r: 0.58984363, g: 0.44386247, b: 0.33404416, a: 0.982}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1089,7 +1089,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 10
   attackInterval: 1
-  damageSound: {fileID: 8300000, guid: 4d4d6b0dcdc39b941bcfe80d0fb75133, type: 3}
+  damageSound: {fileID: 8300000, guid: 8eb65cbcb22b9144087bdcd919c42666, type: 3}
 --- !u!4 &248659791 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 00dd8c629f84bb04f8c7b361fc6b8d48, type: 3}

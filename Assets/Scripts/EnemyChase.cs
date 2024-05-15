@@ -18,9 +18,6 @@ public class EnemyChase : MonoBehaviour {
     void Start() {
         playerGameObject = GameObject.Find("Player");
         animator = GetComponent<Animator>();
-
-        
-        
     }
 
     // Update is called once per frame
@@ -35,7 +32,7 @@ public class EnemyChase : MonoBehaviour {
         }
     }
                 
-        public void setIsChasing(bool b) {
+    public void setIsChasing(bool b) {
         isChasing = b;
     }
    

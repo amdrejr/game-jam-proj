@@ -12,19 +12,16 @@ public class TurnManager : MonoBehaviour {
     public float waveInterval = 3f; // Intervalo entre ondas
     private int currentWave = 1;
     private List<GameObject> spawnedEnemies = new List<GameObject>();
+    public AudioClip[] listAudio;
+
     // Pontos de spawn nos cantos do mapa
     public Transform[] spawnPointsEnemies;
     public Transform[] spawnPointsChicken;
-    
-    // Referências para os objetos de texto na UI
-    public Text textAlert;
-    public Text textRound;
-    public Text textPoints;
-    private int points = 0;
+    public AudioSource audioSource;
 
     private void Start() {
         StartNextWave();
-        textRound.text = "ROUND " + currentWave.ToString("D3");
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void StartNextWave() {
@@ -35,6 +32,8 @@ public class TurnManager : MonoBehaviour {
 
     private IEnumerator SpawnWave(int enemiesToSpawn) {
         StartCoroutine(ShowAndHideMessage(textAlert, "O ataque começou!", 3f));
+        audioSource.clip = listAudio[0];
+        audioSource.Play();
         for (int i = 0; i < enemiesToSpawn; i++) {
             // Escolhe aleatoriamente um ponto de spawn nos cantos do mapa
             Transform randomSpawnPoint = spawnPointsEnemies[Random.Range(0, spawnPointsEnemies.Length)];
@@ -50,7 +49,10 @@ public class TurnManager : MonoBehaviour {
         while (spawnedEnemies.Count > 0) {
             yield return null;
         }
+
         StartCoroutine(ShowAndHideMessage(textAlert, "Wave finalizada", 3f));
+        audioSource.clip = listAudio[1];
+        audioSource.Play();
 
         // Chama a função para spawnar a galinha
         print("spawnando galinha");

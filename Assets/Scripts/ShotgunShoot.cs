@@ -11,11 +11,12 @@ public class ShotgunShoot : MonoBehaviour {
     public float spreadAngle = 25f; // Ângulo de dispersão dos pellets
     private float nextFireTime;
 
+    public GameObject weaponSlots;
     private Transform firePoint;
     public AudioClip shootSound;
 
     private void Awake() {
-        firePoint = GetComponentInParent<Transform>();
+        firePoint = weaponSlots.GetComponent<Transform>();
     }
 
     void Update() {

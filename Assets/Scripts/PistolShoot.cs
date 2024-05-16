@@ -33,7 +33,7 @@ public class PistolShoot : MonoBehaviour {
         Vector3 startProjectilePosition = firePoint.position; // Ajuste a distância conforme necessário
 
         // Criar um novo projétil e instanciá-lo na posição ajustada
-        GameObject projectile = Instantiate(projectilePrefab, startProjectilePosition, firePoint.transform.rotation);
+        GameObject projectile = Instantiate(projectilePrefab, startProjectilePosition, firePoint.rotation);
 
         // Destruir o projétil após 3 segundos
         Destroy(projectile, 3f);

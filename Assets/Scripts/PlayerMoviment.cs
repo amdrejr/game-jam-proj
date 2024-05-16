@@ -32,8 +32,8 @@ public class PlayerMovement : MonoBehaviour
 
         UpdateMovementAnimations(movement);
 
-        animator.SetFloat("horizontal", horizontalInput);
-        animator.SetFloat("vertical", verticalInput);
+        //animator.SetFloat("horizontal", horizontalInput);
+        //animator.SetFloat("vertical", verticalInput);
     }
 
     private void UpdateMovementAnimations(Vector3 movement)
@@ -50,21 +50,11 @@ public class PlayerMovement : MonoBehaviour
                 // Movimento principal é para frente ou para trás
                 if (forwardMovement > 0.5f) // Movendo-se para frente
                 {
-                    print("frente");
-                    animator.SetBool("IsMovingForward", true);
-                    animator.SetBool("IsMovingBackward", false);
-                    animator.SetBool("IsMovingLeft", false);
-                    animator.SetBool("IsMovingRight", false);
-                    animator.SetBool("Idle", false);
+                    animator.SetFloat("vertical", forwardMovement);
                 }
                 else if (forwardMovement < -0.5f) // Movendo-se para trás
                 {
-                    print("tras");
-                    animator.SetBool("IsMovingForward", false);
-                    animator.SetBool("IsMovingBackward", true);
-                    animator.SetBool("IsMovingLeft", false);
-                    animator.SetBool("IsMovingRight", false);
-                    animator.SetBool("Idle", false);
+                    animator.SetFloat("vertical", forwardMovement);
                 }
             }
             else
@@ -72,34 +62,21 @@ public class PlayerMovement : MonoBehaviour
                 // Movimento principal é lateral (esquerda ou direita)
                 if (rightMovement > 0.5f) // Movendo-se para a direita
                 {
-                    print("direita");
-                    animator.SetBool("IsMovingForward", false);
-                    animator.SetBool("IsMovingBackward", false);
-                    animator.SetBool("IsMovingLeft", false);
-                    animator.SetBool("IsMovingRight", true);
-                    animator.SetBool("Idle", false);
+                    animator.SetFloat("vertical", rightMovement);
                 }
                 else if (rightMovement < -0.5f) // Movendo-se para a esquerda
                 {
-                    print("esquerda");
-                    animator.SetBool("IsMovingForward", false);
-                    animator.SetBool("IsMovingBackward", false);
-                    animator.SetBool("IsMovingLeft", true);
-                    animator.SetBool("IsMovingRight", false);
-                    animator.SetBool("Idle", false);
+                    animator.SetFloat("vertical", rightMovement);
                 }
             }
         }
         else
         {
-            // Se o jogador não estiver se movendo, definir Idle como true
-            animator.SetBool("IsMovingForward", false);
-            animator.SetBool("IsMovingBackward", false);
-            animator.SetBool("IsMovingLeft", false);
-            animator.SetBool("IsMovingRight", false);
-            animator.SetBool("Idle", true);
+            // Se o jogador não estiver se movendo, definir o valor do movimento como zero
+            animator.SetFloat("vertical", 0f);
         }
     }
+
 
 
     void UpdateAimPosition()

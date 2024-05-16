@@ -19,6 +19,12 @@ public class TurnManager : MonoBehaviour {
     public Transform[] spawnPointsChicken;
     public AudioSource audioSource;
 
+    // Referências para os objetos de texto na UI
+    public Text textAlert;
+    public Text textRound;
+    public Text textPoints;
+    private int points = 0;
+
     private void Start() {
         StartNextWave();
         audioSource = GetComponent<AudioSource>();

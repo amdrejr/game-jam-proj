@@ -42,7 +42,7 @@ public class EnemyBoss : MonoBehaviour {
         if (collision.collider.CompareTag("Player")&& GetComponent<EnemyChase>().isChasing  ) {
           
             if (Time.time - lastAttackTime >= attackInterval) {
-                
+                player.
                 // animator.SetBool(actualAttack, true);
                 // Som
               // print(actualAttack + " Atacou, " + bossLifeSlider);
@@ -57,20 +57,22 @@ public class EnemyBoss : MonoBehaviour {
 
 
     IEnumerator Atacando2(){
-        agent.isStopped = true;
+        
        // GetComponent<EnemyChase>().setCanAttack(false);
-        
-        yield return new WaitForSeconds(0.8f); // Espera a duração da animação de ataque
-        
+       agent.isStopped = true;
+        animator.SetBool(actualAttack, true);
+        yield return new WaitForSeconds(2.1f); // Espera a duração da animação de ataque
+        agent.isStopped = false;
         if(damageSound != null){
             AudioSource.PlayClipAtPoint(damageSound, transform.position);
         }
          animator.SetBool(actualAttack, false);
-         agent.isStopped = false;
+         //
 
        //  GetComponent<EnemyChase>().setCanAttack(true);
          
-         yield return new WaitForSeconds(0.2f);
+         yield return new WaitForSeconds(2.5f);
+        
         canAttack = true;
           
     }
@@ -89,21 +91,24 @@ public class EnemyBoss : MonoBehaviour {
         while (true) {
             agent.acceleration = 6;
             // Define a velocidade normal
-            agent.speed = 5;
+            agent.speed = 8;
             yield return new WaitForSeconds(5f);
             // Define a velocidade aumentada
-            agent.speed = 25;
+            agent.speed = 18;
             yield return new WaitForSeconds(3f);
         }
     }
 
     // Update is called once per frame
     void Update() {
-        if(Vector3.Distance(transform.position, player.transform.position ) <= 35f && canAttack){
-            animator.SetBool(actualAttack, true);
+        if(Vector3.Distance(transform.position, player.transform.position ) <= 45f && canAttack){
+            
+            
             canAttack = false;
             StartCoroutine(Atacando2());
-            }
+            }/*else{
+                animator.SetBool(actualAttack, false);
+            } */
         if ( bossLifeSlider.value <= 1000) {
             actualAttack = "Attack2";
             Damage = 30;

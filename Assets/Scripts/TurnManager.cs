@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class TurnManager : MonoBehaviour {
     public GameObject Player;
     public GameObject enemyPrefab;
@@ -26,6 +26,7 @@ public class TurnManager : MonoBehaviour {
     private int points = 0;
     private Coroutine currentWaveCoroutine;
 
+    [SerializeField] private int waveBoss;
     private void Start() {
         StartNextWave();
         textRound.text = "ROUND " + currentWave.ToString("D3");
@@ -81,6 +82,10 @@ public class TurnManager : MonoBehaviour {
         yield return new WaitForSeconds(waveInterval);
         StartNextWave();
         currentWave++;
+        // Após tal wave vamos iniciar a wave boss. Essa wave deve ser especificada no inspector.
+        if (currentWave == waveBoss){
+            SceneManager.LoadScene("Boss", LoadSceneMode.Single);
+        }
         textRound.text = "ROUND " + currentWave.ToString("D3");
     }
 

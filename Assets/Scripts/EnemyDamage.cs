@@ -10,11 +10,13 @@ public class EnemyDamage : MonoBehaviour {
     private Animator animator;
 
     public AudioClip damageSound;
-
+    private GameObject player;
     private void OnCollisionStay(Collision collision) {
         if (collision.collider.CompareTag("Player") && GetComponent<EnemyChase>().isChasing) {
             if (Time.time - lastAttackTime >= attackInterval) {
                 animator.SetBool("Ataque", true);
+                
+
                 // Som
                 
                 StartCoroutine(Atacando(collision.collider.GetComponent<PlayerLife>()));
@@ -25,16 +27,18 @@ public class EnemyDamage : MonoBehaviour {
     }
 
 IEnumerator Atacando(PlayerLife playerLife){
-        yield return new WaitForSeconds(0.4f); // Espera a duração da animação de ataque
+        yield return new WaitForSeconds(0.6f); // Espera a duração da animação de ataque
         animator.SetBool("Ataque", false);
         if(damageSound != null){
                     AudioSource.PlayClipAtPoint(damageSound, transform.position);
                 }
+                GetComponent<DamageAnimation>().PlayDamageAnimation(player.transform);
         playerLife.TakeDamage(Damage);    
     }
     // Start is called before the first frame update
     void Start() {
         animator = GetComponent<Animator>();
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame

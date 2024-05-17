@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class TurnManager : MonoBehaviour {
+    public GameObject Player;
     public GameObject enemyPrefab;
     public GameObject chickenPrefab;
+    public GameObject bossPrefab;
+    public Slider bossLifeSlider;
     public int initialEnemiesPerWave = 3;
     public int enemiesIncreasePerWave = 2;
     public float spawnInterval = 2f;
@@ -24,31 +27,50 @@ public class TurnManager : MonoBehaviour {
     public Text textRound;
     public Text textPoints;
     private int points = 0;
+    private Coroutine currentWaveCoroutine;
 
+    [SerializeField] private int waveBoss;
     private void Start() {
         StartNextWave();
         audioSource = GetComponent<AudioSource>();
     }
 
     private void StartNextWave() {
+        // Interrompe a corrotina atual, se estiver em execução
+        if (currentWaveCoroutine != null) {
+            StopCoroutine(currentWaveCoroutine);
+        }
         int enemiesToSpawn = initialEnemiesPerWave + (currentWave - 1) * enemiesIncreasePerWave;
         print("Iniciando Wave: " + enemiesToSpawn + " Inimigos");
-        StartCoroutine(SpawnWave(enemiesToSpawn));
+
+        // Inicia a corrotina para spawnar a onda atual
+        currentWaveCoroutine = StartCoroutine(SpawnWave(enemiesToSpawn));
     }
 
     private IEnumerator SpawnWave(int enemiesToSpawn) {
         StartCoroutine(ShowAndHideMessage(textAlert, "O ataque começou!", 3f));
         audioSource.clip = listAudio[0];
         audioSource.Play();
-        for (int i = 0; i < enemiesToSpawn; i++) {
-            // Escolhe aleatoriamente um ponto de spawn nos cantos do mapa
+        
+        if(currentWave % 2 == 0) {
+            bossLifeSlider.gameObject.SetActive(true);
+            bossLifeSlider.value = 2000;
+            // Spawn do boss
+            print("Spawnando boss");
             Transform randomSpawnPoint = spawnPointsEnemies[Random.Range(0, spawnPointsEnemies.Length)];
-
-            // Spawn do inimigo no ponto selecionado
-            GameObject newEnemy = Instantiate(enemyPrefab, randomSpawnPoint.position, Quaternion.identity);
+            GameObject newEnemy = Instantiate(bossPrefab, randomSpawnPoint.position, Quaternion.identity);
             spawnedEnemies.Add(newEnemy);
+        } else {
+            for (int i = 0; i < enemiesToSpawn; i++) {
+                // Escolhe aleatoriamente um ponto de spawn nos cantos do mapa
+                Transform randomSpawnPoint = spawnPointsEnemies[Random.Range(0, spawnPointsEnemies.Length)];
 
-            yield return new WaitForSeconds(spawnInterval);
+                // Spawn do inimigo no ponto selecionado
+                GameObject newEnemy = Instantiate(enemyPrefab, randomSpawnPoint.position, Quaternion.identity);
+                spawnedEnemies.Add(newEnemy);
+
+                yield return new WaitForSeconds(spawnInterval);
+            }
         }
 
         // Aguarda até que todos os inimigos da onda atual tenham sido derrotados
@@ -56,6 +78,7 @@ public class TurnManager : MonoBehaviour {
             yield return null;
         }
 
+        bossLifeSlider.gameObject.SetActive(false);
         StartCoroutine(ShowAndHideMessage(textAlert, "Wave finalizada", 3f));
         audioSource.clip = listAudio[1];
         audioSource.Play();
@@ -65,10 +88,13 @@ public class TurnManager : MonoBehaviour {
         SpawnChicken();
 
         yield return new WaitForSeconds(waveInterval);
-        currentWave++;
-        textRound.text = "ROUND " + currentWave.ToString("D3");
-
         StartNextWave();
+        currentWave++;
+        // Após tal wave vamos iniciar a wave boss. Essa wave deve ser especificada no inspector.
+        if (currentWave == waveBoss){
+            SceneManager.LoadScene("Boss", LoadSceneMode.Single);
+        }
+        textRound.text = "ROUND " + currentWave.ToString("D3");
     }
 
     private void Update() {
@@ -108,5 +134,24 @@ public class TurnManager : MonoBehaviour {
     public void addPoints(int points) {
         this.points += points;
         print("POINTS: " + this.points);
+    }
+
+    public void restartGame() {
+        Debug.Log("Reiniciando jogo");
+
+        foreach (GameObject enemy in spawnedEnemies) {
+            Destroy(enemy);
+        }
+        spawnedEnemies.Clear();
+        currentWave = 1;
+        points = 0;
+        textRound.text = "ROUND " + currentWave.ToString("D3");
+        StartNextWave();
+
+        Player.GetComponent<PlayerLife>().Vida.value = 100f;
+        Player.GetComponent<PlayerLife>().disableGameOverUI();
+        Player.SetActive(true);
+
+        Player.transform.position = new Vector3(125, 20, 101);
     }
 }

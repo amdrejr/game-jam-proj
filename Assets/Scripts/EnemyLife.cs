@@ -27,6 +27,7 @@ public class EnemyLife : MonoBehaviour {
     public void OnCollisionStay(Collision collision) {
         if (collision.collider.CompareTag("Projectile")) {
             TakeDamage(collision.collider.GetComponent<Projectile>().damageAmount); // Chamar o método TakeDamage com o dano do projétil
+           GetComponent<DamageAnimation>().PlayDamageAnimation(transform);
             Destroy(collision.gameObject);
             print("Acertou " + currentHealth);
         }

@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
         float verticalInput = Input.GetAxisRaw("Vertical");
 
         Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput).normalized;
-        Vector3 newPosition = transform.position + movement * speed * Time.deltaTime;
+        Vector3 newPosition = transform.position + movement * speed * Time.fixedDeltaTime;
         rig.MovePosition(newPosition);
 
         UpdateMovementAnimations(movement);

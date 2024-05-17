@@ -8,9 +8,8 @@ public class EnemyChase : MonoBehaviour {
     private GameObject playerGameObject;
     public bool isChasing = true;
     private Animator animator;
-    private float distAtk;
-    [SerializeField] private float distLimit;
-    
+
+    public bool canAttack = true;
     
     // Start is called before the first frame update
     void Start() {
@@ -21,7 +20,7 @@ public class EnemyChase : MonoBehaviour {
     // Update is called once per frame
     private void Update() {
         // Verifica se o GameObject do Player está ativo antes de acessá-lo
-        if (playerGameObject != null && playerGameObject.activeSelf && isChasing) {
+        if (playerGameObject != null && playerGameObject.activeSelf && isChasing && canAttack) {
             enemy.SetDestination(playerGameObject.transform.position);
 
             
@@ -33,9 +32,10 @@ public class EnemyChase : MonoBehaviour {
     public void setIsChasing(bool b) {
         isChasing = b;
     }
-   
 
-
+        public void setCanAttack(bool value){
+            canAttack = value;
+        }
 
     // public void AtaqueVilao(){
     //     if(playerGameObject != null && Vector3.Distance(transform.position, playerGameObject.transform.position) <= distAtack){

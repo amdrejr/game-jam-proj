@@ -29,7 +29,7 @@ public class EnemyChase : MonoBehaviour {
         }
     }
                 
-        public void setIsChasing(bool b) {
+    public void setIsChasing(bool b) {
         isChasing = b;
     }
 

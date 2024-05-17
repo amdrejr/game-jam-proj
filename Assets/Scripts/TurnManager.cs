@@ -15,10 +15,13 @@ public class TurnManager : MonoBehaviour {
     public float waveInterval = 3f; // Intervalo entre ondas
     private int currentWave = 1;
     private List<GameObject> spawnedEnemies = new List<GameObject>();
+    public AudioClip[] listAudio;
+
     // Pontos de spawn nos cantos do mapa
     public Transform[] spawnPointsEnemies;
     public Transform[] spawnPointsChicken;
-    
+    public AudioSource audioSource;
+
     // Referências para os objetos de texto na UI
     public Text textAlert;
     public Text textRound;
@@ -29,7 +32,7 @@ public class TurnManager : MonoBehaviour {
     [SerializeField] private int waveBoss;
     private void Start() {
         StartNextWave();
-        textRound.text = "ROUND " + currentWave.ToString("D3");
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void StartNextWave() {
@@ -46,8 +49,10 @@ public class TurnManager : MonoBehaviour {
 
     private IEnumerator SpawnWave(int enemiesToSpawn) {
         StartCoroutine(ShowAndHideMessage(textAlert, "O ataque começou!", 3f));
+        audioSource.clip = listAudio[0];
+        audioSource.Play();
         
-        if(currentWave % 2 == 0) {
+        if(currentWave % 4 == 0) {
             bossLifeSlider.gameObject.SetActive(true);
             bossLifeSlider.value = 2000;
             // Spawn do boss
@@ -72,8 +77,11 @@ public class TurnManager : MonoBehaviour {
         while (spawnedEnemies.Count > 0) {
             yield return null;
         }
+
         bossLifeSlider.gameObject.SetActive(false);
         StartCoroutine(ShowAndHideMessage(textAlert, "Wave finalizada", 3f));
+        audioSource.clip = listAudio[1];
+        audioSource.Play();
 
         // Chama a função para spawnar a galinha
         print("spawnando galinha");

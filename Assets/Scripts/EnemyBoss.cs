@@ -12,7 +12,6 @@ public class EnemyBoss : MonoBehaviour {
     private int Damage = 10;
     public float attackInterval = 1f; // Intervalo de tempo entre cada dano
     private float lastAttackTime;
-    private float lastAttackInterval;
     private Animator animator;
     public AudioClip damageSound;
      //private int maxHealth = 1000; // Vida máxima do inimigo
@@ -22,7 +21,6 @@ public class EnemyBoss : MonoBehaviour {
     private bool canAttack = true;
 
     public float stoppingDistance = 0.2f;
-
 
     
     void Start() {
@@ -42,12 +40,14 @@ public class EnemyBoss : MonoBehaviour {
         if (collision.collider.CompareTag("Player")&& GetComponent<EnemyChase>().isChasing  ) {
           
             if (Time.time - lastAttackTime >= attackInterval) {
-                player.
+                
                 // animator.SetBool(actualAttack, true);
                 // Som
               // print(actualAttack + " Atacou, " + bossLifeSlider);
                 // StartCoroutine(Atacando(collision.collider.GetComponent<PlayerLife>()));
                 collision.collider.GetComponent<PlayerLife>().TakeDamage(Damage);
+                GetComponent<DamageAnimation>().PlayDamageAnimation(player.transform);
+                
                 lastAttackTime = Time.time;
             }
         } 
@@ -62,6 +62,10 @@ public class EnemyBoss : MonoBehaviour {
        agent.isStopped = true;
         animator.SetBool(actualAttack, true);
         yield return new WaitForSeconds(2.1f); // Espera a duração da animação de ataque
+        if(actualAttack == "Attack1"){
+            GetComponent<DamageAnimation>().PlayImpactAnimation(transform);
+        }
+       // yield return new WaitForSeconds(0.5f);
         agent.isStopped = false;
         if(damageSound != null){
             AudioSource.PlayClipAtPoint(damageSound, transform.position);

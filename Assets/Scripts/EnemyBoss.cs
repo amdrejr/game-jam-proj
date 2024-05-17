@@ -120,7 +120,7 @@ public class EnemyBoss : MonoBehaviour {
             actualAttack = "Attack1";
             Damage = 15;
         }
-        print(Vector3.Distance(transform.position, player.transform.position ));
+        //print(Vector3.Distance(transform.position, player.transform.position ));
         /*if (bossLifeSlider.value <= 550 && bossLifeSlider.value > 550) {
             actualAttack = "Attack3";
             Damage = 20;

@@ -52,7 +52,7 @@ public class TurnManager : MonoBehaviour {
         audioSource.clip = listAudio[0];
         audioSource.Play();
         
-        if(currentWave % 4 == 0) {
+        if(currentWave % 2 == 0) {
             bossLifeSlider.gameObject.SetActive(true);
             bossLifeSlider.value = 2000;
             // Spawn do boss

@@ -33,6 +33,8 @@ public class TurnManager : MonoBehaviour {
     private void Start() {
         StartNextWave();
         audioSource = GetComponent<AudioSource>();
+        textRound.gameObject.GetComponent<RectTransform>().position = new Vector3(640, 60, 0);
+        textPoints.gameObject.GetComponent<RectTransform>().position = new Vector3(1120, 640, 0);
     }
 
     private void StartNextWave() {
@@ -49,8 +51,8 @@ public class TurnManager : MonoBehaviour {
 
     private IEnumerator SpawnWave(int enemiesToSpawn) {
         StartCoroutine(ShowAndHideMessage(textAlert, "O ataque começou!", 3f));
-        audioSource.clip = listAudio[0];
-        audioSource.Play();
+        // audioSource.clip = listAudio[0];
+        // audioSource.Play();
         
         if(currentWave % 2 == 0) {
             bossLifeSlider.gameObject.SetActive(true);
@@ -80,8 +82,8 @@ public class TurnManager : MonoBehaviour {
 
         bossLifeSlider.gameObject.SetActive(false);
         StartCoroutine(ShowAndHideMessage(textAlert, "Wave finalizada", 3f));
-        audioSource.clip = listAudio[1];
-        audioSource.Play();
+        // audioSource.clip = listAudio[1];
+        // audioSource.Play();
 
         // Chama a função para spawnar a galinha
         print("spawnando galinha");
@@ -99,7 +101,7 @@ public class TurnManager : MonoBehaviour {
 
     private void Update() {
         CheckEnemyStatus();
-        textPoints.text = "Points " + points.ToString("D5");
+        textPoints.text = "POINTS " + points.ToString("D5");
     }
 
     private void CheckEnemyStatus() {

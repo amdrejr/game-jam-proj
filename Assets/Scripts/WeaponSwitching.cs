@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WeaponSwitching : MonoBehaviour
 {
@@ -6,6 +7,8 @@ public class WeaponSwitching : MonoBehaviour
     private int currentWeaponIndex = 0;
     private GameObject player;
     private Animator animator;
+
+    public RawImage[] weaponsIcons;
 
     void Start()
     {
@@ -15,13 +18,16 @@ public class WeaponSwitching : MonoBehaviour
         // Ativar a primeira arma
         SetActiveWeapon(currentWeaponIndex);
 
-        // Verificar e atualizar a camada de animação da primeira arma
+        // Verificar e atualizar a camada de animaï¿½ï¿½o da primeira arma
         UpdateAnimationLayer(currentWeaponIndex);
+
+        // cor da pistol 100%
+        SetTransparency(weaponsIcons[currentWeaponIndex], 1f);
     }
 
     void Update()
     {
-        // Trocar de arma com teclas numéricas (de 1 a 9)
+        // Trocar de arma com teclas numï¿½ricas (de 1 a 9)
         SwitchWeaponByNumber();
     }
 
@@ -44,15 +50,18 @@ public class WeaponSwitching : MonoBehaviour
 
         // Desativa a arma atual
         weapons[currentWeaponIndex].SetActive(false);
+        SetTransparency(weaponsIcons[currentWeaponIndex], .2f);
 
-        // Atualiza o índice da arma atual
+        // Atualiza o ï¿½ndice da arma atual
         currentWeaponIndex = newIndex;
 
         // Ativa a nova arma
         weapons[currentWeaponIndex].SetActive(true);
+        SetTransparency(weaponsIcons[currentWeaponIndex], 1f);
 
-        // Atualiza a camada de animação para a nova arma
+        // Atualiza a camada de animaï¿½ï¿½o para a nova arma
         UpdateAnimationLayer(currentWeaponIndex);
+
     }
 
 
@@ -66,13 +75,13 @@ public class WeaponSwitching : MonoBehaviour
 
     void UpdateAnimationLayer(int weaponIndex)
     {
-        // Certifique-se de que o índice da arma está dentro dos limites válidos
+        // Certifique-se de que o ï¿½ndice da arma estï¿½ dentro dos limites vï¿½lidos
         if (weaponIndex < 0 || weaponIndex >= weapons.Length)
         {
             return;
         }
 
-        // Determina o nome da camada com base no índice da arma
+        // Determina o nome da camada com base no ï¿½ndice da arma
         string layerName = (weaponIndex == 0) ? "Pistol" : "Shotgun";
 
         // Verifica se o Animator possui a camada com o nome especificado
@@ -85,9 +94,17 @@ public class WeaponSwitching : MonoBehaviour
                 animator.SetLayerWeight(i, 0f);
             }
 
-            // Ativa a camada correspondente à nova arma
+            // Ativa a camada correspondente ï¿½ nova arma
             animator.SetLayerWeight(layerIndex, 1f);
         }
+    }
+
+    // MÃ©todo para definir a transparÃªncia de uma RawImage
+    void SetTransparency(RawImage rawImage, float alpha)
+    {
+        Color color = rawImage.color;
+        color.a = alpha;
+        rawImage.color = color;
     }
 
 }

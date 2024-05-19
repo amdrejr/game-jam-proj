@@ -150,8 +150,8 @@ public class EnemyBoss : MonoBehaviour {
     public void Die() {
         GetComponent<EnemyChase>().setIsChasing(false); // ResetPath() aqui
         isDead = true; // Atualizar a flag de morte
-        // animator.SetBool("Death", true); // Animação de morte,
         FindObjectOfType<TurnManager>().addPoints(50); // Adiciona pontos ao jogador
+        animator.SetBool("Morte", true); // Animação de morte
         Destroy(gameObject, 3f); // destruímos o objeto inimigo
     }
 }

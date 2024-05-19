@@ -14,7 +14,9 @@ public class EnemyBoss : MonoBehaviour {
     private float lastAttackTime;
     private Animator animator;
     public AudioClip damageSound;
-     //private int maxHealth = 1000; // Vida máxima do inimigo
+    public AudioClip impactSound;
+    public AudioSource audioSource;
+    //private int maxHealth = 1000; // Vida máxima do inimigo
     private bool isDead = false;
     private string actualAttack;
 
@@ -56,25 +58,31 @@ public class EnemyBoss : MonoBehaviour {
 
 
 
-    IEnumerator Atacando2(){
-        
+    IEnumerator Atacando2() {
+        //Console.WriteLine("Atacando");
        // GetComponent<EnemyChase>().setCanAttack(false);
-       agent.isStopped = true;
+        agent.isStopped = true;
         animator.SetBool(actualAttack, true);
         yield return new WaitForSeconds(2.1f); // Espera a duração da animação de ataque
-        if(actualAttack == "Attack1"){
-            GetComponent<DamageAnimation>().PlayImpactAnimation(transform);
+
+        if (damageSound != null) 
+        { 
+            //print("tocou som");
+            //Console.WriteLine("Atacando");
+            audioSource.clip = damageSound;
+            audioSource.Play();
         }
+        
+        if (actualAttack == "Attack1") GetComponent<DamageAnimation>().PlayImpactAnimation(transform);
+        
        // yield return new WaitForSeconds(0.5f);
         agent.isStopped = false;
-        if(damageSound != null){
-            AudioSource.PlayClipAtPoint(damageSound, transform.position);
-        }
-         animator.SetBool(actualAttack, false);
+        animator.SetBool(actualAttack, false);
          //
 
        //  GetComponent<EnemyChase>().setCanAttack(true);
          
+
          yield return new WaitForSeconds(2.5f);
         
         canAttack = true;

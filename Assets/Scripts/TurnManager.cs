@@ -15,6 +15,7 @@ public class TurnManager : MonoBehaviour {
     public float waveInterval = 3f; // Intervalo entre ondas
     private int currentWave = 1;
     private List<GameObject> spawnedEnemies = new List<GameObject>();
+    private List<GameObject> spawnedChickens = new List<GameObject>();
     public AudioClip[] listAudio;
 
     // Pontos de spawn nos cantos do mapa
@@ -33,8 +34,8 @@ public class TurnManager : MonoBehaviour {
     private void Start() {
         StartNextWave();
         audioSource = GetComponent<AudioSource>();
-        textRound.gameObject.GetComponent<RectTransform>().position = new Vector3(640, 60, 0);
-        textPoints.gameObject.GetComponent<RectTransform>().position = new Vector3(1120, 640, 0);
+        // textRound.gameObject.GetComponent<RectTransform>().position = new Vector3(640, 60, 0);
+        // textPoints.gameObject.GetComponent<RectTransform>().position = new Vector3(1120, 640, 0);
     }
 
     private void StartNextWave() {
@@ -50,13 +51,13 @@ public class TurnManager : MonoBehaviour {
     }
 
     private IEnumerator SpawnWave(int enemiesToSpawn) {
-        StartCoroutine(ShowAndHideMessage(textAlert, "O ataque começou!", 3f));
+        // StartCoroutine(ShowAndHideMessage(textAlert, "O ataque começou!", 3f));
         // audioSource.clip = listAudio[0];
         // audioSource.Play();
         
-        if(currentWave % 2 == 0) {
+        if(currentWave % 6 == 0) {
             bossLifeSlider.gameObject.SetActive(true);
-            bossLifeSlider.value = 2000;
+            bossLifeSlider.value = 2500;
             // Spawn do boss
             print("Spawnando boss");
             Transform randomSpawnPoint = spawnPointsEnemies[Random.Range(0, spawnPointsEnemies.Length)];
@@ -81,7 +82,7 @@ public class TurnManager : MonoBehaviour {
         }
 
         bossLifeSlider.gameObject.SetActive(false);
-        StartCoroutine(ShowAndHideMessage(textAlert, "Wave finalizada", 3f));
+        // StartCoroutine(ShowAndHideMessage(textAlert, "Wave finalizada", 3f));
         // audioSource.clip = listAudio[1];
         // audioSource.Play();
 
@@ -130,7 +131,8 @@ public class TurnManager : MonoBehaviour {
         Transform randomSpawnPoint = spawnPointsChicken[Random.Range(0, spawnPointsChicken.Length)];
 
         // Spawn da galinha no ponto selecionado
-        Instantiate(chickenPrefab, randomSpawnPoint.position, Quaternion.identity);
+        GameObject chicken = Instantiate(chickenPrefab, randomSpawnPoint.position, Quaternion.identity);
+        spawnedChickens.Add(chicken);
     }
 
     public void addPoints(int points) {
@@ -144,6 +146,10 @@ public class TurnManager : MonoBehaviour {
         foreach (GameObject enemy in spawnedEnemies) {
             Destroy(enemy);
         }
+        foreach (GameObject chicken in spawnedChickens) {
+            Destroy(chicken);
+        }
+
         spawnedEnemies.Clear();
         currentWave = 1;
         points = 0;

@@ -98,7 +98,7 @@ public class EnemyBoss : MonoBehaviour {
             agent.speed = 8;
             yield return new WaitForSeconds(5f);
             // Define a velocidade aumentada
-            agent.speed = 18;
+            agent.speed = 25;
             yield return new WaitForSeconds(3f);
         }
     }

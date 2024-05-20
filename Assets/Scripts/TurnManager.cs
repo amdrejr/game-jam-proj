@@ -22,6 +22,7 @@ public class TurnManager : MonoBehaviour {
     public Transform[] spawnPointsEnemies;
     public Transform[] spawnPointsChicken;
     public AudioSource audioSource;
+    public AudioClip turnChange;
 
     // Referências para os objetos de texto na UI
     public Text textAlert;
@@ -51,9 +52,12 @@ public class TurnManager : MonoBehaviour {
     }
 
     private IEnumerator SpawnWave(int enemiesToSpawn) {
-        // StartCoroutine(ShowAndHideMessage(textAlert, "O ataque começou!", 3f));
-        // audioSource.clip = listAudio[0];
-        // audioSource.Play();
+
+        if (turnChange != null) 
+        { 
+            audioSource.clip = turnChange;
+            audioSource.Play();
+        }
         
         if(currentWave % 6 == 0) {
             bossLifeSlider.gameObject.SetActive(true);

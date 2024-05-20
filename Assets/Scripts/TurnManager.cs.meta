@@ -3,7 +3,17 @@ guid: 2a307e826e987f74ba6455129d830a4f
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Player: {instanceID: 0}
+  - enemyPrefab: {instanceID: 0}
+  - chickenPrefab: {instanceID: 0}
+  - bossPrefab: {instanceID: 0}
+  - bossLifeSlider: {instanceID: 0}
+  - audioSource: {instanceID: 0}
+  - turnChange: {fileID: 8300000, guid: ff6de5f19f32a5f4b9bd7472cbc052cc, type: 3}
+  - textAlert: {instanceID: 0}
+  - textRound: {instanceID: 0}
+  - textPoints: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

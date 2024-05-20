@@ -6880,7 +6880,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4250914336265369917, guid: b52d4dac631be4249a3993badebfb71f, type: 3}
       propertyPath: damageAmount
-      value: 25
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 4250914336265369917, guid: b52d4dac631be4249a3993badebfb71f, type: 3}
       propertyPath: projectilePrefab

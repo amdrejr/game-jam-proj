@@ -7,7 +7,7 @@ public class ShotgunShoot : MonoBehaviour {
     public int damageAmount = 8;
     public int pelletsCount = 8; // Número de pellets (tiros) do shotgun
     private float projectileSpeed = 50f;
-    private float fireRate = 1.2f;
+    private float fireRate = 1.4f;
     public float spreadAngle = 25f; // Ângulo de dispersão dos pellets
     private float nextFireTime;
 
